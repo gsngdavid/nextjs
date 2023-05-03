@@ -16,14 +16,20 @@ function ProductDetailPage(props) {
     </Fragment>
 }
 
+async function getData() {
+    const jsonData = await fs.readFile(path.join(process.cwd(), 'data', 'dummy-backend.json'));
+    const data = JSON.parse(jsonData);
+
+    return data.products;
+}
+
 export async function getStaticProps(context) {
 
     const { params } = context;
 
-    const jsonData = await fs.readFile(path.join(process.cwd(), 'data', 'dummy-backend.json'));
-    const data = JSON.parse(jsonData);
+    
 
-    const products = data.products;
+    const products = await getData();
     const product = products.find(product => product.id === params.prodId);
 
     return {
@@ -32,11 +38,14 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
+
+    const products = await getData();
+    const ids = products.map(product => product.id);
+    const pathsArray = ids.map(id => ({params: {prodId: id}}));
+    
     return {
-        paths: [
-            { params: { prodId: 'p1' } }
-        ],
-        fallback: 'blocking'
+        paths: pathsArray,
+        fallback: false
     }
 }
 
