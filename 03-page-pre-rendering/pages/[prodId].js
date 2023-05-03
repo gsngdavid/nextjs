@@ -3,6 +3,11 @@ import path from 'path';
 import { Fragment } from 'react';
 
 function ProductDetailPage(props) {
+
+    // if(!props.loadedProduct) {
+    //     return <p>Loading...</p>
+    // }
+
     const product = props.loadedProduct;
 
     return <Fragment>
@@ -29,12 +34,9 @@ export async function getStaticProps(context) {
 export async function getStaticPaths() {
     return {
         paths: [
-            { params: { prodId: 'p1' } },
-            { params: { prodId: 'p2' } },
-            { params: { prodId: 'p3' } },
-            { params: { prodId: 'p4' } },
+            { params: { prodId: 'p1' } }
         ],
-        fallback: false
+        fallback: 'blocking'
     }
 }
 
