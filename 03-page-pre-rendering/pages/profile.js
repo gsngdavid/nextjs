@@ -4,8 +4,10 @@ function UserProfilePage(props) {
 
 export default UserProfilePage;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+    console.log(context.req);
+
     return {
         props: { username: 'David' }
-    }
+    };
 }
