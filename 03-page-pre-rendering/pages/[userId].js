@@ -6,7 +6,7 @@ export default UserIdPage;
 
 export async function getServerSideProps(context) {
 
-    const { params, res } = context;
+    const { params } = context;
 
     return {
         props: { id: `userId-${params.userId}`}
