@@ -1,6 +1,11 @@
+import { useRouter } from 'next/router';
+
 function ProjectPage() {
+    const router = useRouter();
+    console.log(router.query);
+
     return <div>
-        <h1>A specific project from a specific client</h1>
+        <h1>Project '{router.query.projectId}' from {router.query.id}</h1>
     </div>
 }
 
