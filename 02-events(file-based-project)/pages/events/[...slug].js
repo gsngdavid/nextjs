@@ -45,7 +45,6 @@ function FilteredEvents() {
     }
 
     const date = new Date(year, month - 1);
-    console.log(date);
 
     return <Fragment>
         <ResultsTitle date={date} />
