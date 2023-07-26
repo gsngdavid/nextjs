@@ -4,9 +4,9 @@ import { Fragment } from 'react';
 
 function ProductDetailPage(props) {
 
-    if(!props.loadedProduct) {
-        return <p>Loading...</p>
-    }
+    // if(!props.loadedProduct) {
+    //     return <p>Loading...</p>
+    // }
 
     const product = props.loadedProduct;
 
@@ -47,7 +47,7 @@ export async function getStaticPaths() {
 
     return {
         paths: pathsArray,
-        fallback: true
+        fallback: false
     }
 }
 
