@@ -4,9 +4,9 @@ import { Fragment } from 'react';
 
 function ProductDetailPage(props) {
 
-    // if(!props.loadedProduct) {
-    //     return <p>Loading...</p>
-    // }
+    if(!props.loadedProduct) {
+        return <p>Loading...</p>
+    }
 
     const product = props.loadedProduct;
 
@@ -43,11 +43,11 @@ export async function getStaticPaths() {
 
     const products = await getData();
     const ids = products.map(product => product.id);
-    const pathsArray = ids.map(id => ({params: {prodId: id}}));
+    const pathsArray = ids.map(id => ({params: {prodId: id}})).filter((el, i) => i !== 0); // Exclude p1
 
     return {
         paths: pathsArray,
-        fallback: false
+        fallback: true
     }
 }
 
