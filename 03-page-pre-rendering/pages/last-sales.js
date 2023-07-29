@@ -56,10 +56,12 @@ export default LastSalesPage;
 
 export async function getStaticProps() {
     
-    return fetch(
-        'https://nextjs-course-3eae2-default-rtdb.firebaseio.com/sales.json'
-        ).then(response => response.json()
-        ).then(data => {
+    return fetch('https://nextjs-course-3eae2-default-rtdb.firebaseio.com/sales.json')
+    .then(response => {
+        if(response.ok) return response.json();
+        throw('Something went wrong')
+    })
+    .then(data => {
             let transformedSales = [];
 
             for(const key in data) {
@@ -68,6 +70,12 @@ export async function getStaticProps() {
 
             return {
                 props: {sales: transformedSales},
+                revalidate: 10
+            }
+        })
+        .catch(err => {
+            return {
+                props: { sales: null},
                 revalidate: 10
             }
         });
