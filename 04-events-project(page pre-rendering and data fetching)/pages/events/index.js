@@ -4,10 +4,9 @@ import { getAllEvents } from '../../dummy-data';
 import EventSearch from '../../components/Events/EventsSearch';
 import { useRouter } from 'next/router';
 
-function EventsPage() {
-
+function EventsPage(props) {
     const router = useRouter();
-    let events = getAllEvents();
+    const { events } = props;
 
     const filterHandler = (year, month) => {
         router.push(`/events/${year}/${month}`);
@@ -20,3 +19,21 @@ function EventsPage() {
 }
 
 export default EventsPage;
+
+export async function getStaticProps() {
+    const response = await fetch('https://nextjs-course-3eae2-default-rtdb.firebaseio.com/events.json');
+    const data = await response.json();
+    const events = [];
+
+    for(let key in data) {
+        events.push({
+            id: key,
+            ...data[key]
+        });
+    }
+
+    return {
+        props: { events },
+        revalidate: 10
+    }
+}
