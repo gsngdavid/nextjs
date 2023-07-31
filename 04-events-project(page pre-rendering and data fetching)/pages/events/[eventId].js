@@ -51,6 +51,6 @@ export async function getStaticPaths() {
 
     return {
         paths: pathsArr,
-        fallback: true
+        fallback: true // I want to display my not found event instead of not found page
     };
 }
