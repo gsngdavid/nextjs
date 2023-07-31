@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { getEventById } from '../../helpers/api-util';
 
 import EventSummary from '../../components/EventDetail/EventSummary';
 import EventLogistics from '../../components/EventDetail/EventLogistics';
@@ -37,18 +38,10 @@ export default EventDetailPage;
 
 export async function getStaticProps(context) {
     const { params } = context;
-    const response = await fetch('https://nextjs-course-3eae2-default-rtdb.firebaseio.com/events.json');
-    const data = await response.json();
-    const loadedEvent = data[params.eventId];
-
-    if(!loadedEvent) {
-        return {
-            props: {event: null}
-        }
-    }
+    const loadedEvent = await getEventById(params.eventId);
     
     return {
-        props: {event : loadedEvent}
+        props: {event : loadedEvent ?? null}
     }
 }
 
