@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { getEventById, getAllEvents } from '../../helpers/api-util';
+import { getEventById, getFeaturedEvents } from '../../helpers/api-util';
 
 import EventSummary from '../../components/EventDetail/EventSummary';
 import EventLogistics from '../../components/EventDetail/EventLogistics';
@@ -41,16 +41,17 @@ export async function getStaticProps(context) {
     const loadedEvent = await getEventById(params.eventId);
     
     return {
-        props: {event : loadedEvent ?? null}
+        props: {event : loadedEvent ?? null},
+        revalidate: 30
     };
 }
 
 export async function getStaticPaths() {
-    const events = await getAllEvents();
+    const events = await getFeaturedEvents();
     const pathsArr = events.map(event => ({params: {eventId: event.id}}));
 
     return {
         paths: pathsArr,
-        fallback: true // I want to display my not found event instead of not found page
+        fallback: 'blocking' // I want to display my not found event instead of not found page
     };
 }
