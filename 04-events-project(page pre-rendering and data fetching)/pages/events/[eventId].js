@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { getEventById } from '../../helpers/api-util';
+import { getEventById, getAllEvents } from '../../helpers/api-util';
 
 import EventSummary from '../../components/EventDetail/EventSummary';
 import EventLogistics from '../../components/EventDetail/EventLogistics';
@@ -42,22 +42,15 @@ export async function getStaticProps(context) {
     
     return {
         props: {event : loadedEvent ?? null}
-    }
+    };
 }
 
 export async function getStaticPaths() {
-    const response = await fetch('https://nextjs-course-3eae2-default-rtdb.firebaseio.com/events.json');
-    const data = await response.json();
-    const paramsArr = [];
-
-    for(let key in data) {
-        paramsArr.push({
-            params: { eventId: key }
-        });
-    }
+    const events = await getAllEvents();
+    const pathsArr = events.map(event => ({params: {eventId: event.id}}));
 
     return {
-        paths: paramsArr,
+        paths: pathsArr,
         fallback: true
-    }
+    };
 }
