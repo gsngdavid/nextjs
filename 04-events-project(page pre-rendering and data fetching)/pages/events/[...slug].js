@@ -7,10 +7,6 @@ import Button from "../../components/UI/Button";
 import ErrorAlert from "../../components/UI/ErrorAlert";
 
 function FilteredEvents(props) {
-    // if(!slug) {
-    //     return <p className='center'>Loading...</p>;
-    // }
-
     if(props.invalid) {
         return <Fragment>
             <ErrorAlert>
