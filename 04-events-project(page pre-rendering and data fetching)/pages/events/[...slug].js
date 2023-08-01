@@ -1,24 +1,19 @@
 import { Fragment } from "react";
 import { useRouter } from "next/router";
 
-import { getFilteredEvents } from "../../dummy-data";
+import { getFilteredEvents } from "../../helpers/api-util";
 import EventList from "../../components/Events/EventList";
 import ResultsTitle from "../../components/Events/ResultsTitle";
 import Button from "../../components/UI/Button";
 import ErrorAlert from "../../components/UI/ErrorAlert";
+import { getAllEvents } from "../../helpers/api-util";
 
-function FilteredEvents() {
-    const router = useRouter();
-    const slug = router.query.slug;
+function FilteredEvents(props) {
+    // if(!slug) {
+    //     return <p className='center'>Loading...</p>;
+    // }
 
-    if(!slug) {
-        return <p className='center'>Loading...</p>;
-    }
-
-    const year = +slug[0];
-    const month = +slug[1];
-
-    if(isNaN(year) || isNaN(month) || year > 2030 || year < 2010 || month < 1  || month > 12) {
+    if(props.invalid) {
         return <Fragment>
             <ErrorAlert>
                 <p>Invalid filters. Adjust your values!</p>
@@ -30,7 +25,7 @@ function FilteredEvents() {
         </Fragment>
     }
 
-    const filteredEvents = getFilteredEvents({year, month});
+    const filteredEvents = props.events;
 
     if(!filteredEvents || filteredEvents.length === 0) {
         return <Fragment>
@@ -44,7 +39,7 @@ function FilteredEvents() {
         </Fragment>
     }
 
-    const date = new Date(year, month - 1);
+    const date = new Date(props.date.year, props.date.month);
 
     return <Fragment>
         <ResultsTitle date={date} />
@@ -53,3 +48,24 @@ function FilteredEvents() {
 }
 
 export default FilteredEvents;
+
+export async function getServerSideProps(context) {
+    const { slug } = context.params;
+    const year = +slug[0];
+    const month = +slug[1];
+
+    if(isNaN(year) || isNaN(month) || year > 2030 || year < 2010 || month < 1  || month > 12) {
+        return {
+            props: {invalid: true}
+        };
+    }
+
+    const filteredEvents = await getFilteredEvents({year, month});
+
+    return {
+        props: {
+            events : filteredEvents,
+            date: {year, month: month - 1}
+        },
+    };
+}
