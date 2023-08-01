@@ -1,12 +1,10 @@
 import { Fragment } from "react";
-import { useRouter } from "next/router";
-
 import { getFilteredEvents } from "../../helpers/api-util";
+
 import EventList from "../../components/Events/EventList";
 import ResultsTitle from "../../components/Events/ResultsTitle";
 import Button from "../../components/UI/Button";
 import ErrorAlert from "../../components/UI/ErrorAlert";
-import { getAllEvents } from "../../helpers/api-util";
 
 function FilteredEvents(props) {
     // if(!slug) {
