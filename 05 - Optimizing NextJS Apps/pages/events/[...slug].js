@@ -20,10 +20,17 @@ function FilteredEvents(props) {
         </Fragment>
     }
 
+    const date = new Date(props.date.year, props.date.month);
+    const pageHeadData = <Head>
+        <title>NextJS | Filtered Events</title>
+        <meta name='description' content={`All events for ${date.getMonth() + 1}/${date.getFullYear()}`} />
+    </Head>;
+
     const filteredEvents = props.events;
 
     if(!filteredEvents || filteredEvents.length === 0) {
         return <Fragment>
+            {pageHeadData}
             <ErrorAlert>
                 <p>No events found!</p>
             </ErrorAlert>
@@ -34,13 +41,9 @@ function FilteredEvents(props) {
         </Fragment>
     }
 
-    const date = new Date(props.date.year, props.date.month);
 
     return <Fragment>
-        <Head>
-            <title>NextJS | Filtered Events</title>
-            <meta name='description' content={`All events for ${date.getMonth()}/${date.getFullYear()}`} />
-        </Head>
+        {pageHeadData}
         <ResultsTitle date={date} />
         <EventList events={filteredEvents} />
     </Fragment>
