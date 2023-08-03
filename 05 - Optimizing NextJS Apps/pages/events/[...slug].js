@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { getFilteredEvents } from "../../helpers/api-util";
+import Head from "next/head";
 
 import EventList from "../../components/Events/EventList";
 import ResultsTitle from "../../components/Events/ResultsTitle";
@@ -36,6 +37,10 @@ function FilteredEvents(props) {
     const date = new Date(props.date.year, props.date.month);
 
     return <Fragment>
+        <Head>
+            <title>NextJS | Filtered Events</title>
+            <meta name='description' content={`All events for ${date.getMonth()}/${date.getFullYear()}`} />
+        </Head>
         <ResultsTitle date={date} />
         <EventList events={filteredEvents} />
     </Fragment>

@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { Fragment } from 'react';
 import EventList from '../../components/Events/EventList';
 import { getAllEvents } from '../../helpers/api-util';
@@ -13,6 +14,10 @@ function EventsPage(props) {
     }
 
     return <Fragment>
+        <Head>
+            <title>NextJS | All events</title>
+            <meta name='description' content='Find all the events that will help you to evolve...' />
+        </Head>
         <EventSearch onSearch={filterHandler} />
         <EventList events={events} />
     </Fragment>
