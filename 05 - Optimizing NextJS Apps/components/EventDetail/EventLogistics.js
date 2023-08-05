@@ -1,4 +1,4 @@
-import { Image } from 'next/image';
+import Image from 'next/image';
 
 import AddressIcon from '../Icons/AddressIcon';
 import DateIcon from '../Icons/DateIcon';

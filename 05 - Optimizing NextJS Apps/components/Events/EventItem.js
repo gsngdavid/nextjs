@@ -1,4 +1,4 @@
-import { Image } from 'next/image';
+import Image from 'next/image';
 
 import styles from './EventItem.module.css';
 import Button from "../UI/Button";
