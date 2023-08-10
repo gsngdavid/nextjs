@@ -8,11 +8,12 @@ function feedback(req, res) {
             id: new Date().toISOString(),
             email, message
         }
+        // Store data in a json file
         const dataFilePath = path.join(process.cwd(), 'data', 'feedback.json');
         const data = fs.readFileSync(dataFilePath);
         const jsonData = JSON.parse(data);
         jsonData.push(feedbackObj);
-        
+
         fs.writeFileSync(dataFilePath, JSON.stringify(jsonData));
         res.status(201).json({message: 'Success!', feedback: feedbackObj});
     }
