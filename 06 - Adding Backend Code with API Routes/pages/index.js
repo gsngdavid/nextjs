@@ -6,7 +6,24 @@ function HomePage() {
 
   function submitHandler(e) {
     e.preventDefault();
-    console.log(emailRef.current.value, messageRef.current.value);
+    fetch('/api/feedback', {
+      method: 'POST',
+      body: JSON.stringify({email: emailRef.current.value, message: messageRef.current.value}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => console.log(error))
+    .finally(() => {
+      emailRef.current.value = '';
+      messageRef.current.value = '';
+    })
   }
 
   return <div>
