@@ -1,4 +1,4 @@
-import { extractData, getDataFilePath } from "./feedback";
+import { extractData, getDataFilePath } from ".";
 
 function feedbackIdHandler(req, res) {
     const feedbackId = req.query.feedbackId;

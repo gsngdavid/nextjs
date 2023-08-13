@@ -16,7 +16,7 @@ function FeedbackPage(props) {
     // }, []);
 
     function loadEmailHandler(id) {
-        fetch(`/api/${id}`)
+        fetch(`/api/feedback/${id}`)
         .then(response => response.json())
         .then(data => {
             setSelectedFeedback(data.feedback);
