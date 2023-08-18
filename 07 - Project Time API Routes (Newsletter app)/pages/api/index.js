@@ -1,5 +1,4 @@
 function homePageRequestHandler(req, res) {
-    console.log('Working fine');
     if(req.method === 'POST') {
         const email = req.body;
         console.log(email);
