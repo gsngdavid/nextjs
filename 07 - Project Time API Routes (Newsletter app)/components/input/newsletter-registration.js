@@ -10,6 +10,7 @@ function NewsletterRegistration() {
     // optional: validate input
     if(email.includes('@') && email.includes('.')) {
       // send valid data to API
+      emailRef.current.value = '';
       const response = await fetch('/api', {
         method: 'POST',
         body: JSON.stringify({email}),
