@@ -11,6 +11,7 @@ async function newsletterHandler(req, res) {
         const client = await MongoClient.connect('DB_URL')
         const db = client.db();
         await db.collection('newsletter').insertOne({email});
+        client.close();
 
         res.status(201).json({message: 'Successfully signed up!', email});
     }
