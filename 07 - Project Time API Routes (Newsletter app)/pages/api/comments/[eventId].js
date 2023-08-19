@@ -19,9 +19,7 @@ async function eventCommentHandler(req, res) {
         res.status(200).json({message: "Success!", comment: commentData});
     }
     else {
-        const comments = [
-            {id: '1', message: 'Comment 1', name: 'Denis'}, {id: '2', message: 'Comment 2', name: 'David'}
-        ];
+        const comments = await db.collection('comments').find().sort({_id: -1}).toArray();
         res.status(200).send(JSON.stringify(comments));
     }
     client.close();
