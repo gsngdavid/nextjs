@@ -1,4 +1,4 @@
-function homePageRequestHandler(req, res) {
+function newsletterHandler(req, res) {
     if(req.method === 'POST') {
         const email = req.body;
         console.log(email);
@@ -6,4 +6,4 @@ function homePageRequestHandler(req, res) {
     }
 }
 
-export default homePageRequestHandler;
+export default newsletterHandler;

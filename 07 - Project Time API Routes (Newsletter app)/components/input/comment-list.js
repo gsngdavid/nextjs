@@ -7,7 +7,7 @@ function CommentList(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`/api/events/${props.id}`);
+      const response = await fetch(`/api/comments/${props.id}`);
       const data = await response.json();
       setComments(data);
     }
