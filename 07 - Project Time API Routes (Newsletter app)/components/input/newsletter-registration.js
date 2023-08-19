@@ -15,7 +15,7 @@ function NewsletterRegistration() {
         method: 'POST',
         body: JSON.stringify({email}),
         headers: {
-          'Type-Content': 'application/json'
+          'Content-Type': 'application/json'
         }
       });
 

@@ -1,8 +1,12 @@
 function newsletterHandler(req, res) {
     if(req.method === 'POST') {
-        const email = req.body;
+        const email = req.body.email;
+        if(!email || !email.includes('@')) {
+            res.status(422).json({message: 'Invalid email address.'});
+            return;
+        }
         console.log(email);
-        res.status(200).send(JSON.stringify({message: 'Success!'}));
+        res.status(201).json({message: 'Successfully signed up!', email});
     }
 }
 
