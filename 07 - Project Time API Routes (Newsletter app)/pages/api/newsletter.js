@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { connectDatabase, insertDocument } from "../../helpers/api-util";
 
 async function newsletterHandler(req, res) {
     if(req.method === 'POST') {
@@ -8,10 +8,26 @@ async function newsletterHandler(req, res) {
             return;
         }
 
-        const client = await MongoClient.connect('DB_URL')
-        const db = client.db();
-        await db.collection('newsletter').insertOne({email});
-        client.close();
+        let client = null;
+
+        try {
+            client = await connectDatabase();
+        }
+        catch(error) {
+            res.status(500).json({message: "Failed to connect to the database"});
+            return;
+        }
+        
+        try {
+            await insertDocument(client, 'newsletter', {email});
+        }
+        catch(error) {
+            res.status(500).json({message: "Failed to insert data to database"});
+            return;
+        }
+        finally {
+            client.close();
+        }
 
         res.status(201).json({message: 'Successfully signed up!', email});
     }
