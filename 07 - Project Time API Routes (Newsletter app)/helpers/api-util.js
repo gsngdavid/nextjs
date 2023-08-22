@@ -43,3 +43,8 @@ export async function connectDatabase() {
   const client = await MongoClient.connect(DB_URL);
   return client;
 }
+
+export async function insertDocument(client, collection, document) {
+  const db = client.db();
+  await db.collection(collection).insertOne({document});
+}
