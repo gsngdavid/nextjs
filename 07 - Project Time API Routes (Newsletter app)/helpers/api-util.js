@@ -49,5 +49,5 @@ export async function connectDatabase() {
 
 export async function insertDocument(client, collection, document) {
   const db = client.db();
-  await db.collection(collection).insertOne({document});
+  return await db.collection(collection).insertOne(document);
 }
