@@ -1,4 +1,4 @@
-import { connectDatabase, insertDocument } from "../../helpers/api-util";
+import { connectDatabase, insertDocument } from "../../helpers/db-util";
 
 async function newsletterHandler(req, res) {
     if(req.method === 'POST') {
