@@ -1,6 +1,3 @@
-import { MongoClient } from 'mongodb';
-
-
 export async function getAllEvents() {
   const response = await fetch('https://nextjs-course-3eae2-default-rtdb.firebaseio.com/events.json');
   const data = await response.json();
@@ -38,16 +35,4 @@ export async function getFilteredEvents(dateFilter) {
   });
 
   return filteredEvents;
-}
-
-
-export async function connectDatabase() {
-  const DB_URL = 'mongodb+srv://david:Duj!W7QuZtZdZ7$@gsngdavid.bmf015x.mongodb.net/events?retryWrites=true&w=majority';
-  const client = await MongoClient.connect(DB_URL);
-  return client;
-}
-
-export async function insertDocument(client, collection, document) {
-  const db = client.db();
-  return await db.collection(collection).insertOne(document);
 }
