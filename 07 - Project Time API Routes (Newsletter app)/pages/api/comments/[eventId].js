@@ -1,4 +1,4 @@
-import { connectDatabase, insertDocument } from "../../../helpers/api-util";
+import { connectDatabase, getAllDocuments, insertDocument } from "../../../helpers/db-util";
 
 async function eventCommentHandler(req, res) {
     let client = null;
@@ -36,8 +36,7 @@ async function eventCommentHandler(req, res) {
         let comments = null;
 
         try {
-            const db = client.db();
-            comments = await db.collection('comments').find().sort({_id: -1}).toArray();
+            comments = await getAllDocuments(client, 'comments', {_id: -1});
         }
         catch(error) {
             res.status(500).json({message: "Failed to fetch comments"});
